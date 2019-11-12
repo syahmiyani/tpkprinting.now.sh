@@ -9,8 +9,16 @@ function Layout({ children }) {
     <>
       <Head>
         <HeadContent />
-        <link rel="stylesheet" type="text/css" href="styles.css" />
-        <link rel="stylesheet" type="text/css" href="nprogress.css" />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://res.cloudinary.com/dz8mnabzz/raw/upload/v1573538233/next-store-reed/styles.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://res.cloudinary.com/dz8mnabzz/raw/upload/v1573538274/next-store-reed/nprogress.css"
+        />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"

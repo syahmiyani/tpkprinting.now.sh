@@ -22,7 +22,7 @@ function Header() {
           <Menu.Item header active={isActive("/")}>
             <Image
               size="mini"
-              src="logo.svg"
+              src="https://res.cloudinary.com/dz8mnabzz/image/upload/v1573537512/next-store-reed/logo.svg"
               style={{ marginRight: "1em" }}
             />
             TPK Design
