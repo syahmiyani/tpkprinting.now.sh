@@ -10,7 +10,7 @@ function ProductList({ products }) {
             <Image src={mediaUrl} wrapped ui={false} />
             <Card.Content>
               <Card.Header>{name}</Card.Header>
-              <Card.Meta>${price}</Card.Meta>
+              <Card.Meta>RM{price}</Card.Meta>
             </Card.Content>
           </Card>
         </Link>

@@ -5,11 +5,11 @@ import baseUrl from "../../utils/baseUrl";
 import ProductSummary from "../../components/product/Summary";
 import ProductAttr from "../../components/product/Attributes";
 
-function ProductIdR({ product }) {
+function ProductIdR({ product, user }) {
   return (
     <>
-      <ProductSummary {...product} />
-      <ProductAttr {...product} />
+      <ProductSummary user={user} {...product} />
+      <ProductAttr user={user} {...product} />
     </>
   );
 }

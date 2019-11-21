@@ -3,13 +3,17 @@ import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
 
+import { handleLogout } from "../../utils/auth";
+
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
-function Header() {
+function Header({ user }) {
   const router = useRouter();
-  const user = true;
+  const isRoot = user && user.role === "root";
+  const isAdmin = user && user.role === "admin";
+  const isRootOrAdmin = isRoot || isAdmin;
 
   function isActive(route) {
     return route === router.pathname;
@@ -31,38 +35,40 @@ function Header() {
         <Link href="/cart">
           <Menu.Item active={isActive("/cart")}>
             <Icon name="cart" size="large" />
-            Cart
+            Kart
           </Menu.Item>
         </Link>
+        {isRootOrAdmin && (
+          <Link href="/create">
+            <Menu.Item active={isActive("/create")}>
+              <Icon name="add square" size="large" />
+              Cipta
+            </Menu.Item>
+          </Link>
+        )}
         {user ? (
           <>
-            <Link href="/cipta">
-              <Menu.Item active={isActive("/cipta")}>
-                <Icon name="add square" size="large" />
-                Cipta
-              </Menu.Item>
-            </Link>
             <Link href="/account">
               <Menu.Item active={isActive("/account")}>
                 <Icon name="user" size="large" />
-                Account
+                Akaun
               </Menu.Item>
             </Link>
-            <Menu.Item>
+            <Menu.Item onClick={handleLogout}>
               <Icon name="sign out" size="large" />
               Log Keluar
             </Menu.Item>
           </>
         ) : (
           <>
-            <Link href="/login">
-              <Menu.Item active={isActive("/login")}>
+            <Link href="/signin">
+              <Menu.Item active={isActive("/signin")}>
                 <Icon name="sign in" size="large" />
                 Log Masuk
               </Menu.Item>
             </Link>
-            <Link href="/daftar">
-              <Menu.Item active={isActive("/sign-up")}>
+            <Link href="/signup">
+              <Menu.Item active={isActive("/signup")}>
                 <Icon name="signup" size="large" />
                 Daftar
               </Menu.Item>

@@ -4,7 +4,7 @@ import { Container } from "semantic-ui-react";
 import Header from "./Header";
 import HeadContent from "./HeadContent";
 
-function Layout({ children }) {
+function Layout({ children, user }) {
   return (
     <>
       <Head>
@@ -17,7 +17,7 @@ function Layout({ children }) {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://res.cloudinary.com/dz8mnabzz/raw/upload/v1573538274/next-store-reed/nprogress.css"
+          href="https://res.cloudinary.com/dz8mnabzz/raw/upload/v1574324458/next-store-reed/nprogress.css"
         />
         <link
           rel="stylesheet"
@@ -25,7 +25,7 @@ function Layout({ children }) {
         />
         <title>TPK Design</title>
       </Head>
-      <Header />
+      <Header user={user} />
       <Container text style={{ paddingTop: "1em" }}>
         {children}
       </Container>
