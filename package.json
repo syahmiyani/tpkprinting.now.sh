@@ -1,7 +1,7 @@
 {
-  "name": "store-checkout",
+  "name": "tpk-printing-site",
   "version": "1.0.0",
-  "description": "Server-side React Project - Store Checkout",
+  "description": "Server-side React Project - TPK Printing",
   "main": "index.js",
   "scripts": {
     "dev": "next",
