@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 import { Header, Button, Modal } from "semantic-ui-react";
 
 import baseUrl from "../../utils/baseUrl";
@@ -13,7 +13,9 @@ function ProductAttr({ description, _id, user }) {
   const isAdmin = user && user.role === "admin";
   const isRootOrAdmin = isRoot || isAdmin;
   async function handleDelete() {
-    await axios.delete(`${baseUrl}/api/product/${_id}`);
+    await fetch(`${baseUrl}/api/product/${_id}`, {
+      method: "DELETE"
+    });
     router.push("/");
   }
 

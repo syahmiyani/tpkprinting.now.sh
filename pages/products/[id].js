@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 
 import baseUrl from "../../utils/baseUrl";
 
@@ -15,9 +15,8 @@ function ProductIdR({ product, user }) {
 }
 
 ProductIdR.getInitialProps = async ({ query }) => {
-  const url = `${baseUrl}/api/product/${query.id}`;
-  const res = await axios.get(url);
-  return { product: res.data };
+  const res = await fetch(`${baseUrl}/api/product/${query.id}`);
+  return { product: await res.json() };
 };
 
 export default ProductIdR;

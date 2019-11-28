@@ -3,7 +3,7 @@ import { Button, Segment, Divider } from "semantic-ui-react";
 
 import calculateCartTotal from "../../utils/calculateCartTotal";
 
-function Summary({ products, handleCheckout, isSuccess, user }) {
+function Summary({ products, handleCheckout, isSuccess }) {
   const [cartAmount, setCartAmount] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
 

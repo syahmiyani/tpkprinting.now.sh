@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Input } from "semantic-ui-react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import fetch from 'isomorphic-unfetch';
 import cookie from "js-cookie";
 
 import baseUrl from "../../utils/baseUrl";
@@ -27,11 +27,15 @@ function AddProductToCart({ user }) {
   async function handleAddToCart() {
     try {
       setLoading(true);
-      const url = `${baseUrl}/api/cart`;
-      const payload = { quantity, productId: router.query.id };
       const token = cookie.get("token");
-      const headers = { headers: { Authorization: token } };
-      await axios.put(url, payload, headers);
+      await fetch(`${baseUrl}/api/cart`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ quantity, productId: router.query.id })
+      });
       setSuccess(true);
     } catch (err) {
       catchErrors(err, window.alert);

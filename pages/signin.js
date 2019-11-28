@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 
 import { Button, Form, Icon, Message, Segment } from "semantic-ui-react";
 
@@ -34,10 +34,19 @@ function Login() {
     try {
       setErrorMsg("");
       setLoading(true);
-      const url = `${baseUrl}/api/signin`;
-      const payload = { ...user };
-      const res = await axios.post(url, payload);
-      handleLogin(res.data);
+      const res = await fetch(`${baseUrl}/api/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      });
+      const response = await res.text();
+      if (res.status >= 299) {
+        catchErrors(response, setErrorMsg);
+        return;
+      }
+      handleLogin(response);
     } catch (err) {
       catchErrors(err, setErrorMsg);
     } finally {

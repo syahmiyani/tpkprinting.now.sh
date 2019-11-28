@@ -1,7 +1,7 @@
 import App from "next/app";
 import Router from "next/router";
 import { parseCookies, destroyCookie } from "nookies";
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 
 import { redirectUser } from "../utils/auth";
 import baseUrl from "../utils/baseUrl";
@@ -26,10 +26,13 @@ class MyApp extends App {
       }
     } else {
       try {
-        const payload = { headers: { Authorization: token } };
-        const url = `${baseUrl}/api/account`;
-        const res = await axios.get(url, payload);
-        const user = res.data;
+        const res = await fetch(`${baseUrl}/api/account`, {
+          method: "GET",
+          headers: {
+            Authorization: token
+          }
+        });
+        const user = await res.json();
         const isRoot = user.role === "root";
         const isAdmin = user.role === "admin";
         const isNotPermitted =

@@ -11,9 +11,12 @@ function catchErrors(error, setErrorMsg) {
     // response return no readible error or non readable response
     errorMsg = error.request;
     console.log("Error on request", errorMsg);
-  } else {
+  } else if (error.message) {
     errorMsg = error.message;
     console.log("Some unknown Error on response", errorMsg);
+  } else {
+    errorMsg = error;
+    console.log("Typical Error");
   }
   setErrorMsg(errorMsg);
 }

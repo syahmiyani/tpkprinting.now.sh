@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import fetch from 'isomorphic-unfetch';
 import cookie from "js-cookie";
 import { Header, Checkbox, Table, Icon } from "semantic-ui-react";
 
@@ -14,11 +14,13 @@ function Permissions() {
   }, []);
 
   async function getUsers() {
-    const url = `${baseUrl}/api/users`;
     const token = cookie.get("token");
-    const payload = { headers: { Authorization: token } };
-    const res = await axios.get(url, payload);
-    setUsers(res.data);
+    const res = await fetch(`${baseUrl}/api/users`, {
+      headers: {
+        "Authorization": token
+      }
+    });
+    setUsers(await res.json());
   }
 
   return (

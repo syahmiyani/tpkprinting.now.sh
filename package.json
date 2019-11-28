@@ -9,8 +9,8 @@
     "build": "next build"
   },
   "dependencies": {
-    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
+    "isomorphic-unfetch": "^3.0.0",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.9",
@@ -19,13 +19,11 @@
     "nprogress": "^0.2.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
-    "react-stripe-checkout": "^2.6.3",
     "semantic-ui-react": "^0.88.1",
-    "shortid": "^2.2.15",
-    "stripe": "^7.13.0",
-    "validator": "^12.0.0",
-    "uuid": "^3.3.3"
+    "uninstall": "0.0.0",
+    "validator": "^12.0.0"
   },
+  "repository": "https://github.com/syahmiyani/tpkprinting.git",
   "devDependencies": {},
   "author": "Syahmi Yani",
   "license": "ISC"

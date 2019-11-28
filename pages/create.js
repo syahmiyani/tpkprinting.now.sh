@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 import {
   Form,
   Input,
@@ -56,8 +56,12 @@ function CreateProduct() {
     formData.append("file", state.media);
     formData.append("upload_preset", "next-store-reed");
     formData.append("cloud_name", "dz8mnabzz");
-    const res = await axios.post(process.env.CLOUDINARY_URL, formData);
-    return res.data.url;
+    const res = await fetch(process.env.CLOUDINARY_URL, {
+      method: "POST",
+      body: formData
+    });
+    const response = await res.json();
+    return response.url;
   }
 
   async function handleSubmit(e) {
@@ -69,7 +73,13 @@ function CreateProduct() {
       const mediaUrl = await handleImageUpload();
       const { name, price, description } = state;
       const payload = { name, price, description, mediaUrl };
-      await axios.post(`${baseUrl}/api/product`, payload);
+      await fetch(`${baseUrl}/api/product`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
       setState(INITIAL_STATE);
       setMediaPreview("");
       setIsSuccess(true);

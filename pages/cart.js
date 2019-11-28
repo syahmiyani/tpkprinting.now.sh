@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Segment } from "semantic-ui-react";
 import { parseCookies } from "nookies";
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 import cookie from "js-cookie";
 
 import baseUrl from "../utils/baseUrl";
@@ -16,24 +16,28 @@ function CartP({ products, user }) {
   const [isLoading, setIsLoading] = useState(false);
 
   async function delItem(productId) {
-    const url = `${baseUrl}/api/cart`;
     const token = cookie.get("token");
-    const payload = {
-      params: { productId },
-      headers: { Authorization: token }
-    };
-    const res = await axios.delete(url, payload);
-    setCartProducts(res.data);
+    const res = await fetch(`${baseUrl}/api/cart?productId=${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token
+      }
+    });
+    setCartProducts(await res.json());
   }
 
   async function handleCheckout() {
     try {
       setIsLoading(true);
-      const url = `${baseUrl}/api/checkout`;
       const token = cookie.get("token");
       const payload = { orderData: { email: user.email } };
-      const headers = { headers: { Authorization: token } };
-      await axios.post(url, payload, headers);
+      await axios.post(`${baseUrl}/api/checkout`, {
+        method: "POST",
+        headers: {
+          Authorization: token
+        },
+        body: payload
+      });
       setIsSuccess(true);
     } catch (err) {
       catchErrors(err, window.alert);
@@ -65,11 +69,14 @@ CartP.getInitialProps = async ctx => {
   if (!token) {
     return { products: [] };
   }
-  const url = `${baseUrl}/api/cart`;
-  const payload = { headers: { Authorization: token } };
-  const res = await axios.get(url, payload);
+  const res = await fetch(`${baseUrl}/api/cart`, {
+    method: "GET",
+    headers: {
+      Authorization: token
+    }
+  });
   return {
-    products: res.data
+    products: await res.json()
   };
 };
 

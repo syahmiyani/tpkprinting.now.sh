@@ -1,4 +1,4 @@
-import axios from "axios";
+import fetch from "isomorphic-unfetch";
 
 import baseUrl from "../utils/baseUrl";
 
@@ -17,10 +17,9 @@ function Home({ products, totalPages }) {
 Home.getInitialProps = async ctx => {
   const page = ctx.query.page ? ctx.query.page : "1";
   const size = 9;
-  const url = `${baseUrl}/api/products`;
-  const payload = { params: { page, size } };
-  const res = await axios.get(url, payload);
-  return res.data;
+  const res = await fetch(`${baseUrl}/api/products?page=${page}&size=${size}`);
+  const response = await res.json();
+  return response;
 };
 
 export default Home;
